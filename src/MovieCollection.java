@@ -11,6 +11,27 @@ public class MovieCollection
 {
     private ArrayList<Movie> movies;
     private Scanner scanner;
+    public static ArrayList<String> GENRES=new ArrayList<String>();
+    private static ArrayList<Movie> ACTION_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> ADVENTURE_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> ANIMATION_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> COMEDY_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> CRIME_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> DOCUMENTARY_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> DRAMA_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> FAMILY_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> FANTASY_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> FOREIGN_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> HISTORY_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> HORROR_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> MUSIC_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> MYSTERY_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> ROMANCE_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> SCIFI_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> TV_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> THRILLER_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> WAR_MOVIES = new ArrayList<Movie>();
+    private static ArrayList<Movie> WESTERN_MOVIES = new ArrayList<Movie>();
 
     public MovieCollection(String fileName)
     {
@@ -287,6 +308,95 @@ public class MovieCollection
     private void listGenres()
     {
 
+    if(GENRES.isEmpty()){
+        String genres="";
+        for(Movie movie:movies){
+            genres+=movie.getGenres()+"|";
+        }
+        String[] genreList=genres.split("\\|");
+        for(String i:genreList){
+            if(!GENRES.contains(i)){
+                GENRES.add(i);
+            }
+
+        }
+        Collections.sort(GENRES);
+        for (int i = 0; i < GENRES.size(); i++)
+        {
+            String title = GENRES.get(i);
+
+            // this will print index 0 as choice 1 in the results list; better for user!
+            int choiceNum = i + 1;
+
+            System.out.println("" + choiceNum + ". " + title);
+        }
+        System.out.println("Which genre would you like to learn more about?");
+        System.out.print("Enter number: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        ArrayList<Movie> moviesFitGenre=new ArrayList<Movie>();
+        if (ACTION_MOVIES.isEmpty()) {
+            genreSortMovies();
+        }
+        if (choice == 1) {
+            moviesFitGenre = ACTION_MOVIES;
+        } else if (choice == 2) {
+            moviesFitGenre = ADVENTURE_MOVIES;
+        } else if (choice == 3) {
+            moviesFitGenre = ANIMATION_MOVIES;
+        } else if (choice == 4) {
+            moviesFitGenre = COMEDY_MOVIES;
+        } else if (choice == 5) {
+            moviesFitGenre = CRIME_MOVIES;
+        } else if (choice == 6) {
+            moviesFitGenre = DOCUMENTARY_MOVIES;
+        } else if (choice == 7) {
+            moviesFitGenre = DRAMA_MOVIES;
+        } else if (choice == 8) {
+            moviesFitGenre = FAMILY_MOVIES;
+        } else if (choice == 9) {
+            moviesFitGenre = FANTASY_MOVIES;
+        } else if (choice == 10) {
+            moviesFitGenre = FOREIGN_MOVIES;
+        } else if (choice == 11) {
+            moviesFitGenre = HISTORY_MOVIES;
+        } else if (choice == 12) {
+            moviesFitGenre = HORROR_MOVIES;
+        } else if (choice == 13) {
+            moviesFitGenre = MUSIC_MOVIES;
+        } else if (choice == 14) {
+            moviesFitGenre = MYSTERY_MOVIES;
+        } else if (choice == 15) {
+            moviesFitGenre = ROMANCE_MOVIES;
+        } else if (choice == 16) {
+            moviesFitGenre = SCIFI_MOVIES;
+        } else if (choice == 17) {
+            moviesFitGenre = TV_MOVIES;
+        } else if (choice == 18) {
+            moviesFitGenre = THRILLER_MOVIES;
+        } else if (choice == 19) {
+            moviesFitGenre = WAR_MOVIES;
+        } else if (choice == 20) {
+            moviesFitGenre = WESTERN_MOVIES;
+        }
+        sortResults(moviesFitGenre);
+        for(int i=0;i<moviesFitGenre.size();i++){
+            String title=moviesFitGenre.get(i).getTitle();
+            int choiceNum=i+1;
+            System.out.println(""+choiceNum+". "+title);
+        }
+        System.out.println("Which movie would you like to learn more about?");
+        System.out.print("Enter number: ");
+        int movieChoice = scanner.nextInt();
+        scanner.nextLine();
+        Movie selectedMovie = moviesFitGenre.get(movieChoice - 1);
+
+        displayMovieInfo(selectedMovie);
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
+    }
     }
 
     private void listHighestRated()
@@ -298,7 +408,70 @@ public class MovieCollection
     {
 
     }
-
+    private void genreSortMovies(){
+        for(Movie movie:movies){
+            if(movie.getGenres().contains("Action")){
+                ACTION_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Adventure")){
+                ADVENTURE_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Fantasy")){
+                FANTASY_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Science Fiction")){
+                SCIFI_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Drama")){
+                DRAMA_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Romance")){
+                ROMANCE_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Thriller")){
+                THRILLER_MOVIES.add(movie);
+            }
+            if (movie.getGenres().contains("Crime")){
+                CRIME_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Family")){
+                FAMILY_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Animation")){
+                ANIMATION_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Comedy")){
+                COMEDY_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Mystery")){
+                MYSTERY_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("War")){
+                WAR_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Horror")){
+                HORROR_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Western")){
+                WESTERN_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("History")){
+                HISTORY_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Music")){
+                MUSIC_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Documentary")){
+                DOCUMENTARY_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("Foreign")){
+                FOREIGN_MOVIES.add(movie);
+            }
+            if(movie.getGenres().contains("TV Movie")){
+                TV_MOVIES.add(movie);
+            }
+        }
+    }
     private void importMovieList(String fileName)
     {
         try
